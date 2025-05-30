@@ -33,10 +33,6 @@
             <div class="form-group">
               <label class="label">Select API Service</label>
               <select class="select" id="apiServiceSelect">
-                <option value="">Choose an API service...</option>
-                <option value="userService">User Service</option>
-                <option value="imageService">Image Service</option>
-                <option value="mathService">Math Service</option>
               </select>
             </div>
 
@@ -50,6 +46,29 @@
         </div>
       </section>
 
+      <!-- Parameter Input Card -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">API Parameters</h2>
+        </div>
+        <div class="card-content">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="label">Method</label>
+              <select
+                class="select"
+                id="method-select"
+              >
+                <option value="">Select a method...</option>
+              </select>
+            </div>
+          </div>
+          <div id="parameters-container" class="parameters-grid">
+            <!-- Parameters -->
+          </div>
+        </div>
+      </div>
+
       <!-- Main Content Grid -->
       <section class="main-grid">
         <div class="card">
@@ -60,13 +79,13 @@
             <textarea
               class="textarea"
               id="apiInput"
-              placeholder="Enter your JSON API calls here..."
+              disabled
             >
 [
   {
-    "service": "userService",
-    "method": "getUserProfile",
-    "params": { "userId": 123 }
+    "service": "",
+    "method": "",
+    "params": {}
   }
 ]</textarea
             >

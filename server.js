@@ -1,12 +1,14 @@
-import express, { request } from 'express';
+import express from 'express';
 import { logger } from './backend/logger.js';
-import { dispatch } from './backend/dispatcher.js';
+import cors from 'cors';
+import { dispatch, listServices } from './backend/dispatcher.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
-app.get('/api', async (req, res) => {
+app.post('/api', async (req, res) => {
   try {
     const requestData = req.body;
 
@@ -17,6 +19,11 @@ app.get('/api', async (req, res) => {
     logger.error(`Server error: ${err.message}`);
     res.status(500).json({ status: 'error', message: 'Internal server error' });
   }
+});
+
+app.get('/api', (req, res) => {
+  const response = listServices();
+  res.status(response.status).json(response);
 });
 
 app.listen(PORT, () => {

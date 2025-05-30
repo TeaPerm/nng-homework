@@ -54,3 +54,33 @@ export async function dispatch(request) {
     };
   }
 }
+
+
+export function listServices() {
+  const services = {};
+
+  for (const [serviceName, serviceModule] of Object.entries(serviceRegistry)) {
+    const serviceMethods = {};
+
+    for (const [methodName, methodFn] of Object.entries(serviceModule)) {
+      if (typeof methodFn === "function" && methodName !== "meta") {
+        const metaInfo = serviceModule.meta?.[methodName]?.params || [];
+
+        serviceMethods[methodName] = {
+          params: metaInfo.map((param) => ({
+            name: param.name || "",
+            type: param.type || "any",
+          }))
+        };
+      }
+    }
+
+    services[serviceName] = serviceMethods;
+  }
+
+  return {
+    status: 200,
+    message: "Available services and methods",
+    services
+  };
+}
