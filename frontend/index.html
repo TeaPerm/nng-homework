@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JSON API Runner</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
   </head>
 
-  <body>
+  <body class="dark">
     <div class="container">
       <!-- Header -->
       <section class="header">
@@ -21,19 +28,23 @@
       <section class="card">
         <div class="card-header">
           <h2 class="card-title">
-            <span>API Configuration</span>
             <div class="controls">
-              <button class="btn btn-outline">Light Theme</button>
-              <button class="btn btn-outline">Left Align</button>
+              <button class="btn btn-outline" onclick="toggleTheme()">
+                <span class="toggle-icon" id="theme-icon">🌙</span>
+                <span id="theme-text">Dark Theme</span>
+              </button>
+              <button class="btn btn-outline" onclick="toggleAlignment()">
+                <span id="align-text">Align to Right</span>
+              </button>
             </div>
+            <span>API Configuration</span>
           </h2>
         </div>
         <div class="card-content">
           <div class="form-grid">
             <div class="form-group">
               <label class="label">Select API Service</label>
-              <select class="select" id="apiServiceSelect">
-              </select>
+              <select class="select" id="apiServiceSelect"></select>
             </div>
 
             <div class="form-group">
@@ -55,10 +66,7 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="label">Method</label>
-              <select
-                class="select"
-                id="method-select"
-              >
+              <select class="select" id="method-select">
                 <option value="">Select a method...</option>
               </select>
             </div>
@@ -76,11 +84,7 @@
             <h2 class="card-title">JSON Input</h2>
           </div>
           <div class="card-content">
-            <textarea
-              class="textarea"
-              id="apiInput"
-              disabled
-            >
+            <textarea class="textarea" id="apiInput" disabled>
 [
   {
     "service": "",
@@ -89,52 +93,39 @@
   }
 ]</textarea
             >
-            <div class="button-container">
-              <button class="btn btn-primary" id="runApiBtn">Run API</button>
+            <div class="button-container button-wrapper" id="buttonWrapper">
+              <button class="btn btn-primary" id="runApiBtn">
+                <span
+                  class="loader"
+                  id="loadingSpinner"
+                  style="display: none"
+                ></span>
+                Run API
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Results Card -->
+        <!-- RESULTS CARD -->
         <div class="card">
           <div class="card-header">
             <h2 class="card-title">Results</h2>
           </div>
           <div class="card-content">
-            <pre class="results-display">
-Results will appear here after execution
-</pre
-            >
+            <pre
+              class="results-display"
+            ><code class="language-json">Results will appear here after execution</code></pre>
           </div>
         </div>
       </section>
 
-      <!-- API Documentation Card -->
       <section class="card">
         <div class="card-header">
           <h2 class="card-title">API Documentation</h2>
         </div>
         <div class="card-content">
           <div class="docs-grid">
-            <div class="doc-item">
-              <h3 class="doc-title">User Service</h3>
-              <ul class="doc-methods">
-                <li><span class="status-dot"></span>getUserProfile</li>
-              </ul>
-            </div>
-            <div class="doc-item">
-              <h3 class="doc-title">Image Service</h3>
-              <ul class="doc-methods">
-                <li><span class="status-dot"></span>getImageByName</li>
-              </ul>
-            </div>
-            <div class="doc-item">
-              <h3 class="doc-title">Math Service</h3>
-              <ul class="doc-methods">
-                <li><span class="status-dot"></span>getFibonacci</li>
-                <li><span class="status-dot"></span>multiplyMatrices</li>
-              </ul>
-            </div>
+            <!-- API Documentation Card -->
           </div>
         </div>
       </section>
